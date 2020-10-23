@@ -10,17 +10,27 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @Description detail
  * Created by Hwhhhh on 2020/10/20 13:01
  */
-public class UserService {
-    @Autowired
-    UserRepo userRepo;
+public interface UserService {
+    /**
+     * 用户登录
+     * @param email 用户邮箱
+     * @param password 用户密码
+     * @return 返回用户相关数据
+     */
+    User login(String email, String password);
 
-    public User Login(String email, String password) {
-        UserEntity userEntity = this.userRepo.findByEmailAndPassword(email,password);
-        if (userEntity != null) {
-            User user = new User();
-            BeanUtils.copyProperties(userEntity, user);
-            return user;
-        }
-        return null;
-    }
+    /**
+     * 用户注册
+     * @param email 用户邮箱
+     * @param password 用户密码
+     * @return 返回用户相关数据
+     */
+    User register(String email, String password);
+
+    /**
+     * 更新用户信息
+     * @param user
+     * @return
+     */
+    boolean updateUserInfo(User user);
 }
